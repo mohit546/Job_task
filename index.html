@@ -18,6 +18,25 @@
         .nav-tabs {
             margin-bottom: 20px;
         }
+
+        .imageContainer {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .imageContainer :first-child {
+            width: 100%;
+        }
+
+        .searchIcon {
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            width: 20px;
+            background: #fff;
+            padding: 2px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -27,50 +46,18 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Job Task</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#">Welcome!</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -98,84 +85,8 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
 
-    <script>
-        var data = [];
-        var currentModalInmage = null;
-        $(document).ready(function() {
-            var activeClass = ' class="active"';
-            $.ajax({
-                dataType: "json",
-                url: 'data.json',
-                success: function(data) {
-                    console.log(data);
-                    data = data;
-
-                    displayContentsOnViewport(data);
-
-                }
-            });
-
-            function displayContentsOnViewport(data) {
-                var template = '<ul class="nav nav-tabs">';
-                var tabContents = null;
-                for (var i = 0, l = data.length; i < l; i++) {
-                    if (data[i].active) {
-                        template = template + '<li role="presentation"' + activeClass + '><a href="#" class="tabs" data-id="' + "tab-" + i + '">' + data[i].name + '</a></li>';
-                        if (data[i].content.length && data[i].images.length) {
-                            var temp = "<p>";
-                            var temp1 = "";
-                            for (var j = 0, len = data[i].content.length; j < len; j++) {
-                                temp = temp + data[i].content[j] + '</p>';
-                            }
-                            for (var j = 0, len = data[i].images.length; j < len; j++) {
-                                temp1 = temp1 + '<div style="margin-bottom: 10px; position: relative;"><img class="thumbnail" src="' + data[i].images[j] + '" style="width: 100%;"><img class="searchIcon" data-src="' + data[i].images[j] + '" src="./images/search.png" style="position: absolute; right: 2px; top: 2px; width: 20px; background: #fff; padding: 2px;"></div>';
-                            }
-                            tabContents = '<div class="row"><div class="col-sm-8">' + temp + '</div><div class="col-sm-4">' + temp1 + '</div></div>';
-                        } else if (data[i].content.length && !data[i].images.length) {
-                            var temp = "<p>";
-                            for (var j = 0, len = data[i].content.length; j < len; j++) {
-                                temp = temp + data[i].content[j] + '</p>';
-                            }
-                            tabContents = '<div class="row"><div class="col-sm-12">' + temp + '</div></div>';
-                        }
-                    } else {
-                        template = template + '<li role="presentation"><a href="#" class="tabs" data-id="' + "tab-" + i + '">' + data[i].name + '</a></li>';
-                    }
-                }
-                console.log(tabContents);
-                var final = template + '</ul>' + tabContents;
-                $("#viewport").html(final);
-                $('.tabs').on('click', function() {
-                    console.log($(this).data('id'));
-                    replaceViewportContents($(this).data('id').split('-')[1], data);
-                });
-
-                $('.searchIcon').on('click', function() {
-                    console.log($(this).data('src'));
-                    currentModalInmage = $(this).data('src');
-                    $('#image-modal').modal('show');
-                });
-            }
-
-            $('#image-modal').on('show.bs.modal', function(event) {
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                // var modal = $(this);
-                console.log(currentModalInmage);
-                $('#imageport').html('<img src="' + currentModalInmage + '" style="width: 100%;">');
-
-            })
-
-            function replaceViewportContents(index, data) {
-                data.map(function(x) {
-                    x.active = false;
-                });
-                data[index].active = true;
-                displayContentsOnViewport(data);
-            }
-        });
-    </script>
 </body>
 
 </html>

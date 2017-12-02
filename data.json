@@ -24,7 +24,9 @@
                 "Tab 3 para 1 lorem Adipisicing ex deserunt ad enim. Laborum cupidatat labore amet eiusmod sint enim eu veniam fugiat. Pariatur do ea anim pariatur excepteur esse amet. lorem Adipisicing ex deserunt ad enim. Laborum cupidatat labore amet eiusmod sint enim eu veniam fugiat. Pariatur do ea anim pariatur excepteur esse amet. lorem Adipisicing ex deserunt ad enim. Laborum cupidatat labore amet eiusmod sint enim eu veniam fugiat. Pariatur do ea anim pariatur excepteur esse amet.",
                 "Tab 3 para 2 lorem Adipisicing ex deserunt ad enim. Laborum cupidatat labore amet eiusmod sint enim eu veniam fugiat. Pariatur do ea anim pariatur excepteur esse amet. lorem Adipisicing ex deserunt ad enim. Laborum cupidatat labore amet eiusmod sint enim eu veniam fugiat. Pariatur do ea anim pariatur excepteur esse amet. lorem Adipisicing ex deserunt ad enim. Laborum cupidatat labore amet eiusmod sint enim eu veniam fugiat. Pariatur do ea anim pariatur excepteur esse amet."
             ],
-            "images": [],
+            "images": [
+                "./images/download_3.jpg"
+            ],
             "active": false
         },{
             "name": "Tab-4",
